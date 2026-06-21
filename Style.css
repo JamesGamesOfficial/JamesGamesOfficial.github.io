@@ -9,3 +9,4 @@ section { padding: 80px 20px; max-width: 1000px; margin: auto; text-align: cente
 .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 .card { background: #222; padding: 20px; border-radius: 10px; border: 1px solid #444; }
 .btn { display: inline-block; padding: 10px 20px; background: #00d4ff; color: #000; text-decoration: none; border-radius: 5px; margin-top: 10px; font-weight: bold; }
+html { scroll-behavior: smooth; }

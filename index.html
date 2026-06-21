@@ -8,8 +8,6 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
-        
-        /* Navigation */
         nav { position: sticky; top: 0; display: flex; justify-content: space-between; padding: 20px 10%; background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #333; }
         .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: 2px; }
         .logo span { color: #00d4ff; }
@@ -17,20 +15,18 @@
         nav ul li { margin-left: 30px; }
         nav ul li a { text-decoration: none; color: #ccc; transition: 0.3s; font-weight: 600; }
         nav ul li a:hover { color: #00d4ff; }
-
-        /* Sections */
         section { padding: 100px 10%; text-align: center; }
         h2 { font-size: 2.5rem; margin-bottom: 40px; }
-        
-        /* Hero */
         .hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .hero h1 { font-size: 4rem; margin-bottom: 20px; }
-        
-        /* Game Cards */
         .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background: #161616; padding: 30px; border-radius: 15px; border: 1px solid #333; transition: 0.4s; }
         .card:hover { transform: translateY(-10px); border-color: #00d4ff; }
         .btn { display: inline-block; padding: 12px 25px; background: #00d4ff; color: #000; text-decoration: none; border-radius: 25px; margin-top: 20px; font-weight: bold; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 600px; margin: auto; }
+        .member { background: #161616; padding: 20px; border-radius: 10px; border: 1px solid #333; }
+        .member h3 { color: #00d4ff; margin-bottom: 5px; }
+        .member p { color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>

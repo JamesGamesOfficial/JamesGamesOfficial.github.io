@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mining Sim Clicker</title>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: Arial; text-align: center; }
+        #mine-btn { width: 200px; height: 200px; background: #6a5acd; border-radius: 50%; border: none; cursor: pointer; }
+        .stats { font-size: 1.5em; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Mining Simulator</h1>
+    <div class="stats">
+        <div id="ore-display">Ore: 0</div>
+        <div id="mps-display">Ore per second: 0</div>
+    </div>
+    
+    <button id="mine-btn" onclick="mine()">MINE</button>
+    <br><br>
+    <button onclick="buyAutoMiner()">Buy Auto-Miner (Cost: 10 Ore)</button>
+
+    <script>
+        let ore = 0;
+        let mps = 0; // Ore per second
+        let minerCost = 10;
+
+        function mine() {
+            ore += 1;
+            updateDisplay();
+        }
+
+        function buyAutoMiner() {
+            if (ore >= minerCost) {
+                ore -= minerCost;
+                mps += 1;
+                minerCost = Math.floor(minerCost * 1.5);
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById("ore-display").innerText = "Ore: " + ore;
+            document.getElementById("mps-display").innerText = "Ore per second: " + mps;
+        }
+
+        // The game loop: adds ore every 1 second
+        setInterval(() => {
+            ore += mps;
+            updateDisplay();
+        }, 1000);
+    </script>
+</body>
+</html>

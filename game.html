@@ -59,75 +59,46 @@ html_content = """
     </div>
 
     <script>
-        let game = {
-            ore: 0,
-            mps: 0,
-            minerCost: 10,
-            multiplierCost: 50,
-            clickValue: 1
-        };
+    let game = {
+        ore: 0,
+        mps: 0,
+        minerCost: 10,
+        clickValue: 1,
+        // Track rare ores
+        inventory: { purblu: 0, ruby: 0 }
+    };
 
-        function mine() {
-            game.ore += game.clickValue;
-            updateDisplay();
-        }
-
-        function buyAutoMiner() {
-            if (game.ore >= game.minerCost) {
-                game.ore -= game.minerCost;
-                game.mps += 1;
-                game.minerCost = Math.floor(game.minerCost * 1.5);
-                updateDisplay();
-                updateButtons();
-            }
-        }
-
-        function buyMultiplier() {
-            if (game.ore >= game.multiplierCost) {
-                game.ore -= game.multiplierCost;
-                game.clickValue *= 2;
-                game.multiplierCost = Math.floor(game.multiplierCost * 2.5);
-                updateDisplay();
-                updateButtons();
-            }
-        }
-
-        function updateDisplay() {
-            document.getElementById("ore-display").innerText = "Ore: " + Math.floor(game.ore);
-            document.getElementById("mps-display").innerText = "Ore per second: " + game.mps;
-            updateButtons();
+    function mine() {
+        // Add standard ore
+        game.ore += game.clickValue;
+        
+        // 5% chance to find a Rare Ore
+        if (Math.random() < 0.05) {
+            let rareType = Math.random() < 0.5 ? "purblu" : "ruby";
+            game.inventory[rareType] += 1;
+            console.log("You found a " + rareType + "!");
         }
         
-        function updateButtons() {
-            document.getElementById("buy-miner").innerText = `Buy Auto-Miner (Cost: ${game.minerCost})`;
-            document.getElementById("buy-miner").disabled = game.ore < game.minerCost;
-        }
+        updateDisplay();
+        triggerShake(); // Visual feedback
+    }
 
-        function saveGame() {
-            localStorage.setItem('miningSimSave', JSON.stringify(game));
-            alert("Game Saved!");
-        }
+    function triggerShake() {
+        let btn = document.getElementById("mine-btn");
+        btn.classList.add("shake");
+        setTimeout(() => btn.classList.remove("shake"), 200);
+    }
+</script>
 
-        function loadGame() {
-            const savedGame = JSON.parse(localStorage.getItem('miningSimSave'));
-            if (savedGame) game = savedGame;
-            updateDisplay();
-        }
-
-        function resetGame() {
-            if(confirm("Are you sure you want to reset?")) {
-                localStorage.removeItem('miningSimSave');
-                location.reload();
-            }
-        }
-
-        setInterval(() => {
-            game.ore += (game.mps / 10); // Adds Mps every 0.1s for smoothness
-            updateDisplay();
-        }, 100);
-
-        window.onload = loadGame;
-    </script>
+<!-- Add this CSS to your <style> block -->
+<style>
+    @keyframes shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        50% { transform: translate(-3px, 0px) rotate(2deg); }
+        100% { transform: translate(1px, -1px) rotate(-2deg); }
+    }
+    .shake { animation: shake 0.2s; }
+</style>
 </body>
 </html>
 """

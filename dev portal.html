@@ -55,18 +55,7 @@
         <div class="grid">
             <div class="card">
                 <h3>Mining Simulator</h3>
-                <p>Alpha documentation and codebase resources.</p>
-                <a href="https://github.com/james-does-stuff/mining-simulator-alpha" class="btn">View Repo</a>
-            </div>
-            <div class="card">
-                <h3>X-Engine</h3>
-                <p>Core Python development framework.</p>
-                <a href="#" class="btn">Docs</a>
-            </div>
-            <div class="card">
-                <h3>X-Blox</h3>
-                <p>Godot-based project tools and assets.</p>
-                <a href="#" class="btn">Docs</a>
+                <p>More info coming soon</p>
             </div>
         </div>
     </section>
@@ -74,6 +63,17 @@
     <footer>
         <p>&copy; 2026 JamesGames - Managed by James_Does_Stuff & Agent Hamz</p>
     </footer>
+    <script>
+        function checkLogin() {
+            const password = prompt("Enter dev password:");
+            if (password !== "your-secret-password") {
+                alert("Access Denied");
+                window.location.href = "index.html"; // Redirect away if wrong
+            }
+        }
+        // Run this when the page loads
+        window.onload = checkLogin;
+    </script>
 
 </body>
 </html>

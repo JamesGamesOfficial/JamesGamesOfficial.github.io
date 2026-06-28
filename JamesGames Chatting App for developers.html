@@ -2,101 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JamesGames | Community Hub</title>
+    <title>JamesGames | Hub</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;700&family=JetBrains+Mono&display=swap');
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Outfit', sans-serif; background: #0a0a0c; color: #d1d1d1; height: 100vh; display: flex; flex-direction: column; }
-
-        nav { padding: 20px 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1a1a1e; }
-        .logo { font-weight: 700; letter-spacing: 2px; color: #fff; }
-        .logo span { color: #5b4cf5; }
-        
-        .main-ui { max-width: 800px; margin: 40px auto; width: 95%; flex-grow: 1; display: flex; flex-direction: column; }
-        #chat-box { flex-grow: 1; background: #111114; border: 1px solid #1a1a1e; padding: 20px; border-radius: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
-        
-        /* Auth Overlay */
-        #auth-overlay { position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 100; }
-        .auth-card { background: #16161a; padding: 40px; border-radius: 16px; border: 1px solid #2a2a30; width: 350px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; background: #0a0a0c; border: 1px solid #2a2a30; color: white; border-radius: 6px; }
-        .btn { width: 100%; padding: 12px; background: #5b4cf5; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        body { background: #0a0a0c; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
+        #app { width: 400px; }
+        input { width: 100%; padding: 10px; margin: 5px 0; background: #1a1a1e; border: 1px solid #333; color: white; }
+        button { width: 100%; padding: 10px; background: #5b4cf5; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">JAMES<span>GAMES</span></div>
-        <div id="user-display"></div>
-    </nav>
-
-    <!-- Login/Signup Overlay -->
-    <div id="auth-overlay">
-        <div class="auth-card">
-            <h2 style="margin-bottom: 20px;">Portal Access</h2>
-            <input type="text" id="auth-user" placeholder="Username">
-            <input type="password" id="auth-pass" placeholder="Password">
-            <button class="btn" onclick="handleAuth('login')">LOGIN</button>
-            <p style="margin-top:15px; font-size: 0.8rem; text-align: center; cursor: pointer;" onclick="handleAuth('register')">New? Register here</p>
-        </div>
+<div id="app">
+    <div id="auth-section">
+        <h2>JamesGames Login</h2>
+        <input type="text" id="username" placeholder="Username (must be unique)">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="auth('login')">Login</button>
+        <button onclick="auth('register')" style="margin-top:10px; background:#333;">Register</button>
     </div>
-
-    <div class="main-ui">
-        <div id="chat-box"></div>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" id="msg" placeholder="Message broadcast...">
-            <button class="btn" style="width: auto;" onclick="sendMsg()">SEND</button>
-        </div>
+    
+    <div id="chat-section" style="display:none;">
+        <h2 id="welcome-msg"></h2>
+        <div id="chat-box" style="height: 300px; overflow-y: scroll; border: 1px solid #333; padding: 10px; margin-bottom: 10px;"></div>
+        <input type="text" id="msg-input" placeholder="Type message...">
+        <button onclick="sendMsg()">Send</button>
     </div>
+</div>
 
-    <script>
-        const API = "http://127.0.0.1:8090/api/collections";
-        let currentUser = localStorage.getItem('jg_user');
+<script>
+    const BASE_URL = "http://127.0.0.1:8090/api/collections";
+    
+    async function auth(type) {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-        if (currentUser) document.getElementById('auth-overlay').style.display = 'none';
+        // PocketBase expects email for login if username isn't set, 
+        // but for simplicity, we use the username as the identity
+        const data = type === 'register' 
+            ? { username, password, passwordConfirm: password, email: username + "@jamesgames.com" }
+            : { identity: username, password };
 
-        async function handleAuth(type) {
-            const username = document.getElementById('auth-user').value;
-            const password = document.getElementById('auth-pass').value;
-            
-            const endpoint = type === 'login' ? 'users/auth-with-password' : 'users/records';
-            const body = type === 'login' ? { identity: username, password } : { username, password, passwordConfirm: password};
+        const path = type === 'register' ? 'users/records' : 'users/auth-with-password';
+        
+        const res = await fetch(`${BASE_URL}/${path}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-            const res = await fetch(`${API}/${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-
-            if (res.ok) {
-                localStorage.setItem('jg_user', username);
-                location.reload();
-            } else {
-                alert("Auth failed. Check credentials.");
-            }
+        if (res.ok) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('chat-section').style.display = 'block';
+            document.getElementById('welcome-msg').innerText = "Welcome, " + username;
+            localStorage.setItem('user', username);
+            loadMsgs();
+        } else {
+            const err = await res.json();
+            alert("Error: " + JSON.stringify(err.message));
         }
+    }
 
-        async function sendMsg() {
-            const content = document.getElementById('msg').value;
-            await fetch(`${API}/messages/records`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser, content })
-            });
-            document.getElementById('msg').value = '';
-            loadMessages();
-        }
+    async function sendMsg() {
+        const content = document.getElementById('msg-input').value;
+        await fetch(`${BASE_URL}/messages/records`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: localStorage.getItem('user'), content })
+        });
+        document.getElementById('msg-input').value = '';
+        loadMsgs();
+    }
 
-        async function loadMessages() {
-            const res = await fetch(`${API}/messages/records?sort=-created&perPage=10`);
-            const data = await res.json();
-            document.getElementById('chat-box').innerHTML = data.items.reverse().map(i => 
-                `<div><span style="color:#5b4cf5">@${i.username}:</span> ${i.content}</div>`
-            ).join('');
-        }
-
-        setInterval(loadMessages, 3000);
-        loadMessages();
-    </script>
+    async function loadMsgs() {
+        const res = await fetch(`${BASE_URL}/messages/records?sort=-created`);
+        const data = await res.json();
+        document.getElementById('chat-box').innerHTML = data.items.map(i => `<div><b>${i.username}:</b> ${i.content}</div>`).join('');
+    }
+</script>
 </body>
 </html>

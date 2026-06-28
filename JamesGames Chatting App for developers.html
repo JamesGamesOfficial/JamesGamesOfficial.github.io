@@ -2,83 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horror Mansion | Chat</title>
+    <title>Nexus Chat</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;700&family=JetBrains+Mono:wght@400&display=swap');
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top right, #1a0b2e, #0a0a0a); color: #fff; line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
-        .chat-container { max-width: 800px; margin: 120px auto 40px auto; width: 90%; flex-grow: 1; display: flex; flex-direction: column; gap: 20px; }
-        #chat-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; height: 500px; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: #050505; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; }
+
+        nav { padding: 20px 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #222; }
+        .logo { font-weight: 700; letter-spacing: 2px; }
+        .status-dot { width: 8px; height: 8px; background: #00ff9d; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #00ff9d; }
+
+        .chat-container { max-width: 900px; margin: 40px auto; width: 95%; flex-grow: 1; display: flex; flex-direction: column; }
+        #chat-box { flex-grow: 1; background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px; border-radius: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; }
+
+        .message { padding: 12px; background: #111; border-radius: 8px; border-left: 2px solid #6366f1; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
         
-        .message { background: rgba(255, 255, 255, 0.05); padding: 10px 15px; border-radius: 10px; border-left: 3px solid #00d4ff; width: fit-content; }
-        .message b { color: #00d4ff; }
-
-        .input-area { display: flex; gap: 10px; }
-        input { flex-grow: 1; padding: 15px; border-radius: 50px; border: none; background: rgba(255,255,255,0.05); color: white; outline: none; border: 1px solid rgba(255,255,255,0.1); }
-        .btn { padding: 15px 30px; background: linear-gradient(45deg, #7000ff, #00d4ff); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); filter: brightness(1.2); }
-
-        nav { position: fixed; width: 100%; display: flex; justify-content: space-between; padding: 25px 10%; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: 3px; }
-        .logo span { color: #00d4ff; }
+        .input-group { display: flex; gap: 10px; }
+        input { background: #111; border: 1px solid #333; padding: 15px; border-radius: 8px; color: white; flex-grow: 1; }
+        input:focus { border-color: #6366f1; outline: none; }
+        .btn { padding: 0 30px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn:hover { background: #4f46e5; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">HORROR<span>MANSION</span></div>
+        <div class="logo">NEXUS_CORE <div class="status-dot"></div></div>
     </nav>
 
     <div class="chat-container">
-        <div id="chat-box">
-            <div class="message"><b>System:</b> Connection established. Welcome to the Mansion.</div>
-        </div>
-        <div class="input-area">
-            <input type="text" id="username" placeholder="Username">
-            <input type="text" id="msg" placeholder="Type a message...">
-            <button class="btn" onclick="sendMessage()">Send</button>
+        <div id="chat-box"></div>
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Handle" style="max-width: 150px;">
+            <input type="text" id="msg" placeholder="Broadcast message...">
+            <button class="btn" onclick="sendMessage()">SEND</button>
         </div>
     </div>
 
     <script>
-    const chatBox = document.getElementById('chat-box');
-    const POCKETBASE_URL = "http://127.0.0.1:8090/api/collections/messages/records";
-    async function sendMessage() {
-        const user = document.getElementById('username').value || "Anonymous";
-        const msg = document.getElementById('msg').value;
-        if (!msg) return;
+        const chatBox = document.getElementById('chat-box');
+        const API = "http://127.0.0.1:8090/api/collections/messages/records";
 
-        await fetch(POCKETBASE_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, content: msg })
-        });
+        async function sendMessage() {
+            const user = document.getElementById('username').value || "Guest";
+            const msg = document.getElementById('msg').value;
+            if (!msg) return;
 
-        document.getElementById('msg').value = '';
-        fetchMessages();
-    }
-    async function fetchMessages() {
-        const response = await fetch(`${POCKETBASE_URL}?sort=-created&perPage=20`);
-        const data = await response.json();
-        
-        chatBox.innerHTML = '';
-        data.items.reverse().forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'message';
-            const text = Math.random() > 0.95 ? "̷̢̛Ģ̷̢Ȩ̷̢Ţ̷̢ ̷̧̢O̷̧̢U̷̧̢Ţ̷̢" : item.content;
-            div.innerHTML = `<b>${item.username}:</b> ${text}`;
-            chatBox.appendChild(div);
-        });
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-    setInterval(fetchMessages, 2000);
-    fetchMessages();
+            await fetch(API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user, content: msg })
+            });
 
-    document.getElementById('msg').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-    });
-</script>
+            document.getElementById('msg').value = '';
+            loadMessages();
+        }
+
+        async function loadMessages() {
+            const res = await fetch(`${API}?sort=-created&perPage=15`);
+            const data = await res.json();
+            
+            chatBox.innerHTML = '';
+            data.items.reverse().forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'message';
+                div.innerHTML = `<span style="color:#6366f1">@${item.username}:</span> ${item.content}`;
+                chatBox.appendChild(div);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        setInterval(loadMessages, 3000);
+        loadMessages();
+    </script>
 </body>
 </html>

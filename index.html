@@ -42,6 +42,14 @@
         .member h3 { color: #00d4ff; }
 
         footer { text-align: center; padding: 40px; opacity: 0.5; font-size: 0.9rem; }
+        body { cursor: crosshair; }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #00d4ff; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #9d50bb; }
+        }
+        .hero h1 { animation: glow 2s infinite alternate; }
+        .card:hover { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
        
     </style>
     

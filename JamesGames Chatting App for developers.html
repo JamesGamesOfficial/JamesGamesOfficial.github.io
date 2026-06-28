@@ -17,6 +17,7 @@
         <h2>JamesGames Login</h2>
         <input type="text" id="username" placeholder="Username (must be unique)">
         <input type="password" id="password" placeholder="Password">
+        <input type="email" id="email" placeholder="Your Email Address">
         <button onclick="auth('login')">Login</button>
         <button onclick="auth('register')" style="margin-top:10px; background:#333;">Register</button>
     </div>
@@ -29,21 +30,33 @@
     </div>
 </div>
 
-<script>
-    const API = "http://127.0.0.1:8090/api/collections";
 
-    // 1. Rename to match your onclick="" calls
-    async function auth(type) { 
+<script>
+    async function auth(type) {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value; // Get the email input
 
-        // Ensure these keys match your PocketBase Schema exactly
-        const data = type === 'register' 
-            ? { "Username": username, "password": password, "passwordConfirm": password, "email": username + "@gmail.com" }
-            : { "identity": username, "password": password };
+        let data;
+        let path;
 
-        const path = type === 'register' ? 'users/records' : 'users/auth-with-password';
-        
+        if (type === 'register') {
+            path = 'users/records';
+            data = {
+                "Username": username, // Ensure this matches your schema case
+                "password": password,
+                "passwordConfirm": password,
+                "email": email,       // Use the actual input
+                "emailVisibility": true
+            };
+        } else {
+            path = 'users/auth-with-password';
+            data = {
+                "identity": username, 
+                "password": password
+            };
+        }
+
         const res = await fetch(`${API}/${path}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -52,9 +65,11 @@
 
         if (res.ok) {
             alert("Success!");
+            location.reload(); 
         } else {
             const err = await res.json();
-            console.error(err);
+            console.error("PocketBase Error:", err);
+            alert("Error: " + JSON.stringify(err.data));
         }
     }
 </script>

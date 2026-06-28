@@ -32,10 +32,12 @@
 
 
 <script>
+    const API = "http://127.0.0.1:8090/api/collections";
+
     async function auth(type) {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        const email = document.getElementById('email').value; // Get the email input
+        const email = document.getElementById('email').value;
 
         let data;
         let path;
@@ -43,10 +45,10 @@
         if (type === 'register') {
             path = 'users/records';
             data = {
-                "Username": username, // Ensure this matches your schema case
+                "Username": username, 
                 "password": password,
                 "passwordConfirm": password,
-                "email": email,       // Use the actual input
+                "email": email,
                 "emailVisibility": true
             };
         } else {
@@ -56,7 +58,6 @@
                 "password": password
             };
         }
-
         const res = await fetch(`${API}/${path}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

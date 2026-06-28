@@ -60,7 +60,7 @@
             const password = document.getElementById('auth-pass').value;
             
             const endpoint = type === 'login' ? 'users/auth-with-password' : 'users/records';
-            const body = type === 'login' ? { identity: username, password } : { username, password, passwordConfirm: password, email: username + "@jamesgames.com" };
+            const body = type === 'login' ? { identity: username, password } : { username, password, passwordConfirm: password};
 
             const res = await fetch(`${API}/${endpoint}`, {
                 method: 'POST',

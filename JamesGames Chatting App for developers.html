@@ -33,10 +33,10 @@
     const BASE_URL = "http://127.0.0.1:8090/api/collections";
     
     async function auth(type) {
-        const username = document.getElementById('username').value;
+        const username = document.getElementById('Username').value;
         const password = document.getElementById('password').value;
         const data = type === 'register' 
-            ? { username, password, passwordConfirm: password, email: username + "@jamesgames.com" }
+            ? { Username, password, passwordConfirm: password, email: Username + "@gmail.com }
             : { identity: username, password };
 
         const path = type === 'register' ? 'users/records' : 'users/auth-with-password';

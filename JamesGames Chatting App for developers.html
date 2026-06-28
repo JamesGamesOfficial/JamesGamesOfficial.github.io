@@ -30,51 +30,32 @@
 </div>
 
 <script>
-    const BASE_URL = "http://127.0.0.1:8090/api/collections";
-    
-    async function auth(type) {
-        const username = document.getElementById('Username').value;
+    const API = "http://127.0.0.1:8090/api/collections";
+
+    // 1. Rename to match your onclick="" calls
+    async function auth(type) { 
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+
+        // Ensure these keys match your PocketBase Schema exactly
         const data = type === 'register' 
-            ? { Username, password, passwordConfirm: password, email: Username + "@gmail.com }
-            : { identity: username, password };
+            ? { "Username": username, "password": password, "passwordConfirm": password, "email": username + "@gmail.com" }
+            : { "identity": username, "password": password };
 
         const path = type === 'register' ? 'users/records' : 'users/auth-with-password';
         
-        const res = await fetch(`${BASE_URL}/${path}`, {
+        const res = await fetch(`${API}/${path}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
 
         if (res.ok) {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('chat-section').style.display = 'block';
-            document.getElementById('welcome-msg').innerText = "Welcome, " + username;
-            localStorage.setItem('user', username);
-            loadMsgs();
+            alert("Success!");
         } else {
-            const errorData = await res.json();
-            console.error("PocketBase Error Details:", errorData);
-            alert("Detailed Error: " + JSON.stringify(errorData.data));
+            const err = await res.json();
+            console.error(err);
         }
-    }
-
-    async function sendMsg() {
-        const content = document.getElementById('msg-input').value;
-        await fetch(`${BASE_URL}/messages/records`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: localStorage.getItem('user'), content })
-        });
-        document.getElementById('msg-input').value = '';
-        loadMsgs();
-    }
-
-    async function loadMsgs() {
-        const res = await fetch(`${BASE_URL}/messages/records?sort=-created`);
-        const data = await res.json();
-        document.getElementById('chat-box').innerHTML = data.items.map(i => `<div><b>${i.username}:</b> ${i.content}</div>`).join('');
     }
 </script>
 </body>

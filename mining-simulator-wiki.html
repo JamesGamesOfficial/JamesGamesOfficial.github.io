@@ -55,7 +55,11 @@
             <li><a href="#chunks">Ore Chunks</a></li>
             <li><a href="#smelted-cut">Smelted/Cut Ores</a></li>
             <li><a href="#pickaxes">Pickaxes</a></li>
+            <li><a href="#maps">Maps</a></li>
+            <li><a href="#recipes">Crafting Recipes</a></li>
         </ul>
+        <input type="text" id="searchInput" placeholder="Search ores, items..." 
+           style="padding: 10px; border-radius: 20px; border: none; background: rgba(255,255,255,0.1); color: white; outline: none; margin-left: 20px;">
     </nav>
     <section id="home" class="hero">
         <div class="logo2">JAMES<span>GAMES</span></div>
@@ -276,6 +280,72 @@
             
         </div>
     </section>
+    
+    <section id="maps">
+        <h2>Areas</h2>
+        <div class="grid" style="max-width: 800px;">
+            <div class="card member">
+                <h3>Starting Area</h3>
+                <p>Spawns Ores: Coal, Iron, Gold, Diamond, Emerald, Dyminite</p>
+                <p>Has Smelter MK 1</p>
+            </div>
+            <div class="card member">
+                <h3>Area 2</h3>
+                <p>Price to Enter: 2500</p>
+                <p>Spawns Ores: Purblu, Ruby, Blue Crystal, Green Crystal, Red Crystal</p>
+            </div>
+            <div class="card member">
+                <h3>Mountain Area</h3>
+                <p>Price to Enter: 500</p>
+                <p>Form of Enterance: Plane</p>
+                <p>Spawns Ores: Coal, Gold, Kriytine, Ruby, Dyminite</p>
+                <p>Must Purchase each time to enter</p>
+                <p>Has Smelter MK 2</p>
+            </div>    
+        </div>
+    </section>
+
+    <section id="recipes">
+        <h2>Crafting Recipes</h2>
+        <div class="grid" style="max-width: 800px;">
+            <div class="card member">
+                <h3>Iron Ingot</h3>
+                <p>2 Coal + 1 Iron Chunk</p>
+            </div>
+            <div class="card member">
+                <h3>Gold Ingot</h3>
+                <p>10 Coal + 5 Gold Chunks</p>
+            </div>
+            <div class="card member">
+                <h3>Cut Diamond</h3>
+                <p>2 Uncut Diamonds</p>
+            </div>
+            <div class="card member">
+                <h3>Cut Emerald</h3>
+                <p>2 Uncut Emeralds</p>
+            </div>
+            <div class="card member">
+                <h3>Dyminite Ingot</h3>
+                <p>20 Coal + 5 Dyminite Chunks</p>
+            </div>
+            <div class="card member">
+                <h3>Cut Purblu</h3>
+                <p>2 Uncut Purblu</p>
+            </div>
+            <div class="card member">
+                <h3>Cut Ruby</h3>
+                <p>2 Uncut Rubies</p>
+            </div>
+            <div class="card member">
+                <h3>Kriytine Ingot</h3>
+                <p>20 Coal + 5 Kriytine Chunks</p>
+            </div>
+            <div class="card member">
+                <h3>Smelter MK 1</h3>
+                <p>5 Coal + 3 Iron Chunks</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2026 JamesGames Studio. Built for the community.</p>
@@ -284,6 +354,21 @@
         <a href="privacy.html">Privacy Policy</a>
         <div class="logo">JAMES<span>GAMES</span></div>
     </footer>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+    
+            cards.forEach(card => {
+                let text = card.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

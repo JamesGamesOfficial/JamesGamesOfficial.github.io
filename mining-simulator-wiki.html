@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki | Mining Simulator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: radial-gradient(circle at top right, #1a0b2e, #0a0a0a); color: #fff; line-height: 1.6; overflow-x: hidden; }
+
+        nav { position: fixed; width: 100%; display: flex; justify-content: space-between; padding: 25px 10%; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-weight: 700; font-size: 1.8rem; letter-spacing: 3px; cursor: pointer; }
+        .logo span { color: #00d4ff; }
+        .logo2 { font-weight: 700; font-size: 2.8rem; letter-spacing: 3px; cursor: pointer; }
+        .logo2 span { color: #00d4ff; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 40px; }
+        nav ul li a { text-decoration: none; color: #fff; font-weight: 300; transition: 0.3s; }
+        nav ul li a:hover { color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero h1 { font-size: 5rem; margin-bottom: 10px; background: linear-gradient(to right, #9d50bb, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        section { padding: 120px 10%; }
+        h2 { font-size: 3rem; margin-bottom: 50px; text-align: center; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
+        .card { background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.4s; text-align: center; }
+        .card:hover { transform: translateY(-15px); border-color: #00d4ff; background: rgba(255, 255, 255, 0.06); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        
+        .btn { display: inline-block; padding: 15px 35px; background: linear-gradient(45deg, #7000ff, #00d4ff); color: white; text-decoration: none; border-radius: 50px; margin-top: 25px; font-weight: bold; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+        .member { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; }
+        .member h3 { color: #00d4ff; }
+
+        footer { text-align: center; padding: 40px; opacity: 0.5; font-size: 0.9rem; }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #00d4ff; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #9d50bb; }
+        }
+        .hero h1 { animation: glow 2s infinite alternate; }
+        .card:hover { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; top: 0; left: 0; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">JAMES<span>GAMES</span></div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#ores">Ores</a></li>
+            <li><a href="#chunks">Ore Chunks</a></li>
+            <li><a href="#smelted-cut">Smelted/Cut Ores</a></li>
+            <li><a href="#pickaxes">Pickaxes</a></li>
+        </ul>
+    </nav>
+    <section id="home" class="hero">
+        <div class="logo2">JAMES<span>GAMES</span></div>
+        <h3>Mining Simulator Wiki</h3>
+        <a href="#about" class="btn">About</a>
+    </section>
+
+    <section id="about">
+        <h2>About Mining Simulator</h2>
+        <p style="max-width: 700px; margin: auto; text-align: center; font-size: 1.2rem; opacity: 0.8;">
+            Mining Simulator is a fun indie game about mining resources to sell and upgrade your gear.
+        </p>
+    </section>
+
+    <section id="ores">
+        <h2>Ores</h2>
+        
+        <div class="grid" style="max-width: 800px;">
+            <a href="#chunks" class="btn">Ore Chunks</a>
+            <a href="#smelted-cut" class="btn">Smelted/Cut Ores</a>
+            <div class="card member">
+                <h3>Coal</h3>
+                <p>Health: 1</p>
+            </div>
+            <div class="card member">
+                <h3>Iron</h3>
+                <p>Health: 2</p>
+            </div>
+            <div class="card member">
+                <h3>Gold</h3>
+                <p>Health: 4</p>
+            </div>
+            <div class="card member">
+                <h3>Diamond</h3>
+                <p>Health: 6</p>
+            </div>
+            <div class="card member">
+                <h3>Emerald</h3>
+                <p>Health: 8</p>
+            </div>
+            <div class="card member">
+                <h3>Dyminite</h3>
+                <p>Health: 12</p>
+            </div>
+            <div class="card member">
+                <h3>Purblu</h3>
+                <p>Health: 6</p>
+            </div>
+            <div class="card member">
+                <h3>Ruby</h3>
+                <p>Health: 8</p>
+            </div>
+            <div class="card member">
+                <h3>Blue Crystal</h3>
+                <p>Health: 2</p>
+            </div>
+            <div class="card member">
+                <h3>Green Crystal</h3>
+                <p>Health: 2</p>
+            </div>
+            <div class="card member">
+                <h3>Red Crystal</h3>
+                <p>Health: 4</p>
+            </div>
+            <div class="card member">
+                <h3>Kriytine</h3>
+                <p>Health: 40</p>
+            </div>
+            <div class="card member">
+                <h3>Lightning</h3>
+                <p>Health: 10</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="chunks">
+        <h2>Ore Chunks</h2>
+        <div class="grid" style="max-width: 800px;">
+            <div class="card member">
+                <h3>Coal</h3>
+                <p>Price: 3</p>
+            </div>
+            <div class="card member">
+                <h3>Iron</h3>
+                <p>Price: 8</p>
+            </div>
+            <div class="card member">
+                <h3>Gold</h3>
+                <p>Price: 10</p>
+            </div>
+            <div class="card member">
+                <h3>Diamond</h3>
+                <p>Price: 15</p>
+            </div>
+            <div class="card member">
+                <h3>Emerald</h3>
+                <p>Price: 30</p>
+            </div>
+            <div class="card member">
+                <h3>Dyminite</h3>
+                <p>Price: 250</p>
+            </div>
+            <div class="card member">
+                <h3>Purblu</h3>
+                <p>Price: 75</p>
+            </div>
+            <div class="card member">
+                <h3>Ruby</h3>
+                <p>Price: 100</p>
+            </div>
+            <div class="card member">
+                <h3>Blue Crystal</h3>
+                <p>Price: 50</p>
+            </div>
+            <div class="card member">
+                <h3>Green Crystal</h3>
+                <p>Price: 50</p>
+            </div>
+            <div class="card member">
+                <h3>Red Crystal</h3>
+                <p>Price: 100</p>
+            </div>
+            <div class="card member">
+                <h3>Kriytine</h3>
+                <p>Price: 150</p>
+            </div>
+            <div class="card member">
+                <h3>Lightning</h3>
+                <p>Price: 100</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="smelted-cut">
+        <h2>Smelted/Cut Ores</h2>
+        <div class="grid" style="max-width: 800px;">
+            <div class="card member">
+                <h3>Iron</h3>
+                <p>Price: 15</p>
+            </div>
+            <div class="card member">
+                <h3>Gold</h3>
+                <p>Price: 30</p>
+            </div>
+            <div class="card member">
+                <h3>Diamond</h3>
+                <p>Price: 75</p>
+            </div>
+            <div class="card member">
+                <h3>Emerald</h3>
+                <p>Price: 100</p>
+            </div>
+            <div class="card member">
+                <h3>Dyminite</h3>
+                <p>Price: 1000</p>
+            </div>
+            <div class="card member">
+                <h3>Purblu</h3>
+                <p>Price: 100</p>
+            </div>
+            <div class="card member">
+                <h3>Ruby</h3>
+                <p>Price: 150</p>
+            </div>
+            <div class="card member">
+                <h3>Kriytine</h3>
+                <p>Price: 300</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="pickaxes">
+        <h2>Pickaxes</h2>
+        <div class="grid" style="max-width: 800px;">
+            <div class="card member">
+                <h3>Iron</h3>
+                <p>Price: free</p>
+                <p>Durability: 250</p>
+                <p>Damage: 1</p>
+            </div>
+            <div class="card member">
+                <h3>Gold</h3>
+                <p>Price: 500</p>
+                <p>Durability: 100</p>
+                <p>Damage: 2</p>
+            </div>
+            <div class="card member">
+                <h3>Diamond</h3>
+                <p>Price: 1500</p>
+                <p>Durability: 500</p>
+                <p>Damage: 6</p>
+            </div>
+            <div class="card member">
+                <h3>Dyminite</h3>
+                <p>Price: 5000</p>
+                <p>Durability: 2500</p>
+                <p>Damage: 10</p>
+            </div>
+            <div class="card member">
+                <h3>Lightning</h3>
+                <p>Price: 10000</p>
+                <p>Durability: 5000</p>
+                <p>Damage: 12</p>
+            </div>
+            <div class="card member">
+                <h3>Ruby</h3>
+                <p>Price: 25000</p>
+                <p>Durability: 10000</p>
+                <p>Damage: 14</p>
+            </div>
+            <div class="card member">
+                <h3>Kriytine</h3>
+                <p>Price: 75000</p>
+                <p>Durability: 25000</p>
+                <p>Damage: 20</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 JamesGames Studio. Built for the community.</p>
+        <p>Founded by James_Does_Stuff, co-founded Agent hamz and Clutch.</p>
+        <a href="tos.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <div class="logo">JAMES<span>GAMES</span></div>
+    </footer>
+
+</body>
+</html>

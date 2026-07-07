@@ -67,6 +67,14 @@
         <img src="Mining Simulator Logo-1.png.png" alt="Mining Simulator Logo" style="width: 100%; border-radius: 10px;">
         <h3>Mining Simulator Wiki</h3>
         <a href="#about" class="btn">About</a>
+        <a href="#daily-fact" class="btn">Daily Mining Simulator Fact</a>
+    </section>
+
+    <section id="daily-fact">
+        <h2>Daily Fact</h2>
+        <div class="card">
+            <p id="fact-display">Loading today's fact...</p>
+        </div>
     </section>
 
     <section id="about">
@@ -382,6 +390,31 @@
             });
         });
     </script>
+
+    <script>
+    const facts = [
+        "JamesGames was founded in 2026!",
+    	"The Kriytine pickaxe only does 20 damage but it's ore has 40 health!",
+    	"The first ever Alpha version of Mining Simulator released on May 20th 2026!",
+    	"Mining Simulator only took about a month to go into Beta!",
+    	"Created by James_Does_Stuff!",
+    	"Shout out to Skorpnorp_the_Devastator!",
+    	"Hello!",
+    	"Mining Simulator(Beta)",
+    	"print('Hello World!')"
+    ];
+
+    function showDailyFact() {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const diff = now - start;
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dayOfYear = Math.floor(diff / oneDay);
+        const factIndex = dayOfYear % facts.length;
+        document.getElementById('fact-display').innerText = facts[factIndex];
+    }
+    showDailyFact();
+</script>
 
 </body>
 </html>

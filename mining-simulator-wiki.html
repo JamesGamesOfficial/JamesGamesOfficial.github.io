@@ -71,9 +71,9 @@
     </section>
 
     <section id="daily-fact">
-        <h2>Daily Fact</h2>
+        <h2>Splash Texts </h2>
         <div class="card">
-            <p id="fact-display">Loading today's fact...</p>
+            <p id="fact-display">Loading today's splash text...</p>
         </div>
     </section>
 
@@ -393,13 +393,34 @@
     </script>
 
     <script>
-    const facts = [
-        "JamesGames was founded in 2026!",
-    	"The Kriytine pickaxe only does 20 damage but it's ore has 40 health!",
-    	"The first ever Alpha version of Mining Simulator released on May 20th 2026!",
-    	"Mining Simulator only took about a month to go into Beta!",
-    	"Created by James_Does_Stuff!"
-    ];
+    const splash_texts = [
+	"JamesGames was founded in 2026!",
+	"The Kriytine pickaxe only does 20 damage but it's ore has 40 health!",
+	"The first ever Alpha version of Mining Simulator released on May 20th 2026!",
+	"Mining Simulator only took about a month to go into Beta!",
+	"Created by James_Does_Stuff!",
+	"Shout out to Skorpnorp_the_Devastator!",
+	"Hello!",
+	"Mining Simulator(Beta)",
+	"print('Hello World!')",
+	"Over 2,000 lines of code!",
+	"This took probably around 48 hours to make!",
+	"Sonion",
+	"Oof!",
+	"Music by James_Does_Stuff!",
+	"KING BOB",
+	"Testing testing 123!",
+	"Also Try Minecraft!",
+	"Also Try Terraria!",
+	"Get on Itch.io!",
+	"Checkout our website at https://jamesgamesofficial.github.io!",
+	"...",
+	"Very funny؟",
+	"HEHEHEHA!",
+	"sdjfjeisiskjflej",
+	"Me: Hello \n Bob: Would you like to go on the plane? \n Me: Yes! *Gives $500*",
+	"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Hello!"
+];
 
     function showDailyFact() {
         const now = new Date();
@@ -408,7 +429,7 @@
         const oneDay = 1000 * 60 * 60 * 24;
         const dayOfYear = Math.floor(diff / oneDay);
         const factIndex = dayOfYear % facts.length;
-        document.getElementById('fact-display').innerText = facts[factIndex];
+        document.getElementById('fact-display').innerText = splash_texts[factIndex];
     }
     showDailyFact();
 </script>

@@ -32,7 +32,14 @@
         h2 { font-size: 3rem; margin-bottom: 50px; text-align: center; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
-        .card { background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.4s; text-align: center; }
+        .card { 
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            transition: 0.4s; 
+            text-align: center; 
+        }
         .card:hover { transform: translateY(-15px); border-color: #00d4ff; background: rgba(255, 255, 255, 0.06); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         
         .btn { display: inline-block; padding: 15px 35px; background: linear-gradient(45deg, #7000ff, #00d4ff); color: white; text-decoration: none; border-radius: 50px; margin-top: 25px; font-weight: bold; transition: 0.3s; }
@@ -48,6 +55,11 @@
 
         .member { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; }
         .member h3 { color: #00d4ff; }
+
+        .game_title {
+            font-size: xx-large;
+            text-transform: uppercase;
+        }
 
         footer { text-align: center; padding: 40px; opacity: 0.5; font-size: 0.9rem; }
         @keyframes glow {
@@ -70,7 +82,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#team">Team</a></li>
-            <li><a href="#games">Games</a></li>
+            <li><a href="#games">Projects</a></li>
             <li><a href="#discord">Discord</a></li>
             <li><a href="#socials">Socials</a></li>
             <li><a href="#application">Applications</a></li>  
@@ -123,13 +135,15 @@
         <h2>Our Projects</h2>
         <div class="grid">
             <div class="card">
-                <h3>Mining Simulator</h3>
+                <h3 class="game_title">Mining Simulator</h3>
                 <p style="margin-top: 15px;">Gather materials, upgrade your tools, and master the depths.</p>
+                <p style="font-weight: bold;">(FREE DEMO AVAILABLE!)</p>
                 <a href="https://james-does-stuff.itch.io/mining-simulator" class="btn" target="_blank">Play Beta</a>
-                <a href="mining-simulator-changelog.html" class="btn" target="_blank">Change Log</a>
+                <a href="mining-simulator-changelog.html" class="btn" target="_blank">Changelog</a>
                 <a href="mining-simulator-wiki.html" class="btn" target="_blank">Wiki</a>
                 <p style="max-width: 700px; margin: auto; text-align: center; font-size: 1.2rem; opacity: 0.8;">
-                    We plan on releasing on steam within the next year but you will still be able to purchase the game on Itch.io for $5.00 plus you can pay extra as a little donation, developers at JamesGames get a free download key for the game!!
+                    <b>We plan on releasing Mining Simulator to Steam within the next year, but purchase via itch.io will still be avalible for a minimum of $5.00 or however much you are willing to pay.</b><br>
+                    <i>Team members get lifetime access for free!</i>
                 </p>
             </div>            
         </div>
@@ -138,7 +152,7 @@
     <section id="discord">
         <h2>Join Our Discord Server</h2>
         <div class="card">
-            <a href="https://discord.gg/SYxTAymyQ2" class="btn" target="_blank">Discord</a>
+            <a href="https://discord.gg/SYxTAymyQ2" class="btn" target="_blank">&#xf1ff; Discord</a>
         </div>
     </section>
     <section id="socials">
@@ -169,7 +183,7 @@
     <section id="application">
         <h2>Join the dev team!</h2>
         <div class="card">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScIiU29Ds10zN0EJ3C3kG8ELTnaFlJARxrGqM8Qn6KT30lfvg/viewform?usp=header" class="btn" target="_blank">&#xf0219; Google Form</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScIiU29Ds10zN0EJ3C3kG8ELTnaFlJARxrGqM8Qn6KT30lfvg/viewform?usp=header" class="btn" target="_blank">&#xf0219; Click here to fill out an application</a>
         </div>
     </section>
     <footer>
